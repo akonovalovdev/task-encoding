@@ -31,8 +31,7 @@ type MyEncoder interface {
 func (j *JSONData) Encoding() error {
 	jsonFile, err := os.ReadFile(j.FileInput)
 
-	j.DockerCompose = &models.DockerCompose{}
-	if err = json.Unmarshal(jsonFile, j.DockerCompose); err != nil {
+	if err = json.Unmarshal(jsonFile, &j.DockerCompose); err != nil {
 		return fmt.Errorf("error unmarshal json: %s", err)
 	}
 
@@ -56,8 +55,7 @@ func (y *YAMLData) Encoding() error {
 		return fmt.Errorf("error read file: %s", err)
 	}
 
-	y.DockerCompose = &models.DockerCompose{}
-	if err = yaml.Unmarshal(yamlFile, y.DockerCompose); err != nil {
+	if err = yaml.Unmarshal(yamlFile, &y.DockerCompose); err != nil {
 		return fmt.Errorf("error unmarshal yaml: %s", err)
 	}
 
